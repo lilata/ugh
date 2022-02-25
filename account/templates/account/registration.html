@@ -1,0 +1,81 @@
+{% extends 'ugh/includes/base.html' %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% block body %}
+    {{ block.super }}
+    {% if msg %}
+        <h3 style="color: red">
+            {{ msg }}
+        </h3>
+    {% endif %}
+
+    <form action="{% url 'account:registration' %}"
+          method="POST"
+          class="registration-form"
+          id="registration_form"
+    >
+        {% csrf_token %}
+        <label for="id_username">Your Desired Username</label>
+        <br>
+        <input type="text" id="id_username" name="username" value="{{ username }}">
+        <span class="invisible-note"
+              style="color: #ff0000"
+              id="note_username_wrong_length"
+        >
+            <br>The length of your username should be between 1 and 256.
+        </span>
+        <span class="invisible-note"
+              style="color: #ff0000"
+              id="note_username_used"
+        >
+            <br>(This username is used. Thanks. :3)
+        </span>
+        <br>
+        <label for="id_password">Your Password</label>
+        <br>
+        <input type="password" id="id_password" name="password">
+        <span class="invisible-note"
+              style="color: #ff0000"
+              id="note_password_too_short"
+        >
+            <br>(The length of your password should be longer than 6.)
+        </span>
+        <span class="invisible-note"
+              style="color: #ff0000"
+              id="note_password_wrong_length"
+        >
+            <br>The length of your password should be less than 4096.
+        </span>
+        <span class="invisible-note"
+              style="color: #ff0000"
+              id="note_password_no_special_char"
+        >
+            <br>(Your password should contain a special character(
+            <span style="color: #0000ff">
+                `~!@#$%^&*()_+{}|?[]\/.,<>;':"-=
+            </span>
+            )).)
+        </span>
+        <br>
+        <label for="id_password_again">Your Password Again</label>
+        <br>
+        <input type="password" id="id_password_again" name="password_again">
+        <br>
+        <label for="id_captcha">Your Captcha <br> <b>(Click to change, case-sensitive)</b></label>
+        <br>
+        <img src="" width="200vw" height="auto" alt="the captcha is loading... =3" id="captcha_img">
+        <br>
+        <input type="text" id="id_captcha" name="captcha">
+        <input type="hidden" id="captcha_token" name="captcha_token">
+        <br><br>
+        <button id="id_register_button">Register Now!</button>
+    </form>
+{% endblock %}
+{% block after_body %}
+    <script>
+        const userExistAPI = '{% url 'account:user_exists' %}';
+        const newCaptchaAPI = '{% url 'utils:new_captcha' %}'
+    </script>
+    <script src="{% static 'js/common.js' %}"></script>
+    <script src="{% static 'js/registration.js' %}"></script>
+{% endblock %}

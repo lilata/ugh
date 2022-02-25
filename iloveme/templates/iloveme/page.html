@@ -1,0 +1,88 @@
+{% extends 'ugh/includes/base.html' %}
+{% load static %}
+{% block title %}{{ page.get_page_title }}{% endblock %}
+{% block website_name %}{% endblock %}
+{% block header_title %}
+    {{ page.get_body_title }}
+
+{% endblock %}
+{% block after_header_title %}
+    {% if page.user == user %}
+        <br>
+        <span style="font-size: 0.5em">
+        <a class="pure-button">Change HTML Title</a>
+        <a class="pure-button">Change Page Title</a>
+    </span>
+    {% endif %}
+    <br>
+    {% if page.user.is_staff %}
+        <span style="font-size: 0.4em">
+        <img
+                src="{% static 'img/verified.svg' %}" alt="Verified!"
+                height="15vh" width="auto">
+            Personal webpage of an <a href="{% url 'core:index' %}">UGH</a> admin.
+        </span>
+    {% else %}
+        <span style="font-size: 0.4em">Powered by <a href="{% url 'core:index' %}">UGH</a></span>
+    {% endif %}
+{% endblock %}
+{% block nav_links %}
+    {% if user.is_authenticated %}
+        <span>[Hi, {{ user.username }}]</span>
+        <br>
+    {% endif %}
+    {% if page.user == user %}
+        <a class="pure-button" id="manage_link_btn" href="{% url 'iloveme:links' %}">
+            Manage Links
+        </a>
+        <br>
+    {% endif %}
+    {% if page.has_nav_links %}
+        {% for link in page.get_nav_links %}
+            <a href="{{ link.url }}">[{{ link.text }}]</a>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block body %}
+    <div class="iloveme-body">
+        {% if page.pic_url %}
+            <img src="{{ page.pic_url }}" alt="{{ page.get_pic_alt }}" class="iloveme-profile-pic"><br>
+            {% if page.user == user %}
+                <br>
+                <a class="pure-button" href="">Change Profile Picture</a>
+
+            {% endif %}
+        {% else %}
+            {% if page.user == user %}
+                <a class="pure-button" id="add_profile_pic_btn">Add Profile Picture</a>
+            {% endif %}
+        {% endif %}
+        {% if page.user == user %}
+            <form action="" method="POST">
+                <input type="file" name="profile_pic_file">
+                <input class="hide" type="text" name="profile_pic_url">
+                <input type="hidden" name="file_type" value="upload">
+                <br>
+                <a class="pure-button">Submit</a>&nbsp;<a class="pure-button">Cancel</a>
+            </form>
+        {% endif %}
+        {% for tag in page.get_profile_tags %}
+            <h4 class="profile-tag">{{ tag.tag }}</h4>:
+            <span class="profile-tag-value">{{ tag.value }}</span>
+        {% endfor %}
+        {% if page.summary %}
+            {% if page.user == user %}
+                <a class="pure-button">Edit Summary</a>
+            {% endif %}
+            {% for p in page.summary_paragraphs %}
+                <p>{{ p }}</p>
+            {% endfor %}
+        {% else %}
+            {% if page.user == user %}
+                <p>
+                    <a class="pure-button">Add Summary</a>
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

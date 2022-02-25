@@ -1,0 +1,42 @@
+{% extends 'ugh/includes/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block body %}
+    {{ block.super }}
+    {% if msg %}
+        <h3 style="color: red">
+            {{ msg }}
+        </h3>
+    {% endif %}
+    <form action="{% url 'account:login' %}" method="POST"
+          id="login-form"
+          class="login-form">
+        {% csrf_token %}
+        <label for="id_username">Username</label>
+        <br>
+        <input type="text" id="id_username" name="username">
+        <br>
+        <label for="id_password">Password</label>
+        <br>
+        <input type="password" id="id_password" name="password">
+        <br>
+        <label for="id_captcha">Your Captcha <br> <b>(Click to change, case-sensitive)</b></label>
+        <br>
+        <img src="" width="200vw" height="auto" alt="the captcha is loading... =3" id="captcha_img">
+        <br>
+        <input type="text" id="id_captcha" name="captcha">
+        <input type="hidden" id="captcha_token" name="captcha_token">
+        <input type="hidden" id="id_next" name="next" value="{{ next }}">
+        <br><br>
+        <button id="id_login_button">Login</button>
+
+    </form>
+{% endblock %}
+{% block after_body %}
+    <script>
+        const newCaptchaAPI = '{% url 'utils:new_captcha' %}'
+    </script>
+    <script src="{% static 'js/common.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+.header-nav {
+    display: block;
+    text-align: center;
+}
+.header-nav a, .header-nav span {
+    text-decoration: none;
+    font-size: 1.5em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
+.header-nav a:hover {
+    font-size: 1.6em;
+    transition-duration: 0.05s;
+}
+.registration-form, .login-form {
+    text-align: center;
+}
+.red-border {
+    border: 1px solid red;
+}
+.invisible-note {
+    display: none;
+}
+.iloveme-body {
+    text-align: center;
+    font-size: 1.5em;
+}
+.iloveme-body h4 {
+    display: inline;
+}
+@media only screen and (max-width: 1024px) {
+    .iloveme-profile-pic {
+        width: 100%;
+        height: auto;
+    }
+}
+@media only screen and (min-width: 1025px) {
+    .iloveme-profile-pic {
+        width: 60%;
+        height: auto;
+    }
+}
+.hide {
+    display: none;
+}

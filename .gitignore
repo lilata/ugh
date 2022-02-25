@@ -1,0 +1,8 @@
+venv
+__pycache__
+db.sqlite3
+default_static_root
+.idea
+externalfiles/
+!externalfiles/nginx/nginx_conf.template
+secrets.toml

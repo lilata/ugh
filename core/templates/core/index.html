@@ -1,0 +1,10 @@
+{% extends 'ugh/includes/base.html' %}
+{% block title %}
+    index
+{% endblock %}
+{% block body %}
+    <h2>Welcome to UGH, the web services provided by Shinji^TM.</h2>
+    <h3>We are offering:</h3>
+    <h4><a href="{% url 'iloveme:index' %}">I Love Me</a>
+        : Your personal configurable webpage.</h4>
+{% endblock %}

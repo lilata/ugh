@@ -1,0 +1,9 @@
+{% extends 'ugh/includes/base.html' %}
+{% block title %}You have registered!{% endblock %}
+{% block body %}
+    <h4>
+        Mister/Miss {{  username }}, you have registered an account!
+        <br>
+        You can <a href="{% url 'account:login' %}">login</a> now.
+    </h4>
+{% endblock %}
