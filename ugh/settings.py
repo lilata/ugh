@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os.path
+from os import environ
 import warnings
 from pathlib import Path
 import tomli
@@ -27,7 +28,9 @@ if os.path.exists(SECRETS_FILE):
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = environ.get('UGH_PROD') != '1'
+if DEBUG is False:
+    warnings.warn("DEBUG is False.")
 # SECURITY WARNING: keep the secret key used in production secret!
 if DEBUG:
     SECRET_KEY = 'django-insecure-e8!*=nkrk(2o0&obdc=b4=*9d-cip6a#rs+o)*#58vyo)@m8)%'
