@@ -34,7 +34,7 @@ if DEBUG:
 else:
     SECRET_KEY = SECRETS.get('secret_key')
     if not SECRET_KEY:
-        raise ValueError("Invalid SECRET_KEY in development environment!")
+        raise ValueError("Invalid SECRET_KEY in production environment!")
 
 
 
