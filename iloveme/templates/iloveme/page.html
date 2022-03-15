@@ -3,15 +3,20 @@
 {% block title %}{{ page.get_page_title }}{% endblock %}
 {% block website_name %}{% endblock %}
 {% block header_title %}
+    <div id="header-title">
     {{ page.get_body_title }}
-
+    </div>
+    <form class="hide" action="" method="POST" id="header-title-form">
+        <input type="text" name="title"> <br>
+        <button type="submit">Confirm</button> <button id="cancel-header-title-btn">Cancel</button>
+    </form>
 {% endblock %}
 {% block after_header_title %}
     {% if page.user == user %}
         <br>
         <span style="font-size: 0.5em">
         <a class="pure-button">Change HTML Title</a>
-        <a class="pure-button">Change Page Title</a>
+        <a class="pure-button" id="change-page-title-btn">Change Page Title</a>
     </span>
     {% endif %}
     <br>
@@ -58,7 +63,7 @@
             {% endif %}
         {% endif %}
         {% if page.user == user %}
-            <form action="" method="POST">
+            <form id="profile-pic-form" action="" method="POST" class="hide">
                 <input type="file" name="profile_pic_file">
                 <input class="hide" type="text" name="profile_pic_url">
                 <input type="hidden" name="file_type" value="upload">
@@ -85,4 +90,7 @@
             {% endif %}
         {% endif %}
     </div>
+{% endblock %}
+{% block after_body %}
+    <script src="{% static 'js/iloveme.js' %}"></script>
 {% endblock %}
